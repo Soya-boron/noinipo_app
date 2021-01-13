@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NoinipoApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <div class="header-logo">
+        <%= link_to("noinipo","/") %>
+      </div>
+
+      <ul class="header-menus">
+      <%if @current_user%>
+        <li>
+          <%= link_to("ログアウト","/users/logout",{method:"post"}) %>
+        </li>
+        <li>
+          <%= link_to("検索","/themes/index") %>
+        </li>
+        <li>
+          <%= link_to(@current_user.name,"/users/#{@current_user.id}/show") %>
+        </li>
+      
+      <%else%>
+        <li>
+          <%= link_to("新規登録","/users/signup") %>
+        </li>
+        <li>
+          <%= link_to("ログイン","/users/login") %>
+        </li>
+        <li>
+          <%= link_to("noinipoとは","/about") %>
+        </li>
+      <%end%>
+
+
+
+      </ul>
+
+    </header>
+    
+    <body class="">
+    <% if flash[:notice] %>
+    <div class="flash">
+      <%= flash[:notice ]%>
+    </div>
+    <%end%>
+      <%= yield %>
+    </body>
+
+    <footer>
+      <div class="footer">
+        2021_soya_kubota
+      </div>
+    </footer>
+  </body>
+</html>

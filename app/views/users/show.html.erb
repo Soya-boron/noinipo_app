@@ -1,0 +1,6 @@
+<img src = <%="/user_image/#{@user.image_name}"%> class="user_image" >
+
+<p> <%=@user.name%> </p>
+<p> <%=@user.introduction%> </p>
+<%= link_to("編集","/users/#{@user.id}/edit")%>
+<p>opi,opinion_likes,themeの表示</p>

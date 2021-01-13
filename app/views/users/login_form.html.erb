@@ -1,0 +1,10 @@
+<h1>noinipoにログイン</h1>
+
+<%= form_tag("/users/login") do %>
+    <p>email</p>
+    <input name="email">
+
+    <p>password</p>
+    <input name="password">
+    <input type="submit" value="ログイン">
+<% end %>

@@ -1,0 +1,2 @@
+module OpinionLikesHelper
+end

@@ -1,0 +1,15 @@
+<h1>アカウント編集</h1>
+<%= form_tag("/users/#{@user.id}/update",{multipart:true}) do %>
+    <p>ユーザ名</p>
+    <input name="name" value="<%="#{@user.name}"%>">
+
+    <p>プロフィール画像</p>
+    <input type="file" name="image">
+
+    <p>email</p>
+    <input name="email" value="<%="#{@user.email}"%>">
+
+    <p>自己紹介</p>
+    <textarea name="introduction"><%="#{@user.introduction}"%></textarea>
+    <input type="submit" value="変更">
+<%end%>

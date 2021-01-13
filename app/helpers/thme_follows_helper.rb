@@ -1,0 +1,2 @@
+module ThmeFollowsHelper
+end
