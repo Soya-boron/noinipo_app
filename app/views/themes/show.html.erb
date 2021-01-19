@@ -1,2 +1,27 @@
-<h1>Themes:(選択されたテーマ)</h1>
-<p>opiの一覧を表示</p>
+<h1>テーマ:<%= @theme.name %></h1>
+<%= link_to("意見する","/opinions/#{@theme.id}/create")%>
+
+<p></p>
+
+<% @theme.theme_to_opinions.each do |opinion| %>
+<% user = opinion.opinion_to_user %>
+<div class="opinion-content">
+    <%= opinion.content %>
+    <%= link_to("/users/#{user.id}/show") do %>
+        ユーザ名:<%= user.name %>
+        <img src=<%="/user_image/#{user.image_name}"%>  class="opinion-user_image">
+    <%end%>
+
+    <% if OpinionLike.search_likeopinion_data?(userid:@current_user.id,opinionid:opinion.id) %>
+        <%= link_to("/opinion_likes/#{@current_user.id}/#{opinion.id}/destroy",{method:"post"}) do %>
+        　<span class="fas fa-heart unlike-btn"></span>
+        <%end%>
+        <%= opinion.likecount %>
+    <%else%>
+        <%= link_to("/opinion_likes/#{@current_user.id}/#{opinion.id}/create",{method:"post"}) do %>
+        　<span class="fas fa-heart like-btn"></span>
+        <%end%>
+        <%= opinion.likecount %>
+    <%end%>
+</div>
+<%end%>

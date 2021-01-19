@@ -1,0 +1,25 @@
+<img src = <%="/user_image/#{@user.image_name}"%> class="user_image">
+
+<p> <%=@user.name%> </p>
+<p> <%=@user.introduction%> </p>
+<%= link_to("アカウント編集","/users/#{@user.id}/edit")%>
+
+<ul>
+    <li>
+        <%= link_to("意見","/users/#{@user.id}/show")%>
+    </li><li> 
+        <%= link_to("いいねした意見","/users/#{@user.id}/show_likeopinions")%>
+    </li><li>
+        <%= link_to("フォロー中テーマ","/users/#{@user.id}/show_followthemes")%>
+    </li>
+</ul>
+
+<% @user.user_to_followthemes_data.each do |data| %>
+    <div class="followtheme-name">
+        <% theme = data.followtheme_data_to_theme %>
+        <%= link_to(theme.name,"/themes/#{theme.id}/show")%>
+        <%= form_tag("/theme_follows/#{@current_user.id}/#{theme.id}/destroy") do %>
+            <input type="submit" value="フォローをやめる">
+        <%end%>
+    </div>
+<%end%>

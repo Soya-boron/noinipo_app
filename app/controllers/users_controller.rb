@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   
+  before_action:cancel_non_login,{only:[:show,:show_followthemes,:show_likeopinions,:edit]}
+  before_action:cancel_def_account_users,{only:[:show_followthemes,:show_likeopinions,:edit]}
+  before_action:cancel_non_account_users,{only:[:show]}
+
   def signup
     
   end
@@ -44,6 +48,14 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
+  def show_followthemes
+    @user = User.find_by(id: params[:id])
+  end
+
+  def show_likeopinions
+    @user = User.find_by(id: params[:id])
+  end
+
   def edit 
     @user = User.find_by(id: params[:id])
   end
@@ -66,4 +78,21 @@ class UsersController < ApplicationController
       render("users/edit")
     end
   end
+
+  def cancel_def_account_users
+    @user=User.find_by(id:params[:id])
+    if @user == nil || @current_user.id != @user.id 
+      flash[:notice]="権限がありません"
+      redirect_to("/themes/index")
+    end
+  end
+
+  def cancel_non_account_users
+    @user=User.find_by(id:params[:id])
+    if @user == nil
+      flash[:notice]="権限がありません"
+      redirect_to("/themes/index")
+    end
+  end
+
 end

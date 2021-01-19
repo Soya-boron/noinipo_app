@@ -1,3 +1,17 @@
 // Place all the styles related to the themes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//show
+
+.opinion-user_image{
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    Border-radius:50%;
+}
+
+.index-theme{
+    border: 1px solid #696969;
+    height: 60px;
+}

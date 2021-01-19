@@ -1,5 +1,5 @@
 <%= form_tag("/themes/search",{method:"get"}) do %>
-    <input name="saerch">
+    <input name="saerch" value=<%="#{@search}"%> >
     <input type="submit" value="検索">
 <%end%>
 
@@ -15,7 +15,6 @@
                     フォロワー数：<%= theme.followcount %>
                     投稿数：<%= theme.opinioncount %>
                 <%end%>
-                
             <%else%>
                 <%= form_tag("/theme_follows/#{@current_user.id}/#{theme.id}/create") do %>
                     <input type="submit" value="フォローする">
@@ -26,3 +25,4 @@
         </div>
     <%end%>
 </div>
+

@@ -1,6 +1,51 @@
-<img src = <%="/user_image/#{@user.image_name}"%> class="user_image" >
+<img src = <%="/user_image/#{@user.image_name}"%> class="user_image">
 
-<p> <%=@user.name%> </p>
-<p> <%=@user.introduction%> </p>
-<%= link_to("編集","/users/#{@user.id}/edit")%>
-<p>opi,opinion_likes,themeの表示</p>
+<p> ユーザ名：<%=@user.name%> </p>
+<p> 自己紹介：<%=@user.introduction%> </p>
+
+<%if @current_user == @user %>
+    <%= link_to("アカウント編集","/users/#{@user.id}/edit")%>
+
+    <ul>
+        <li>
+            <%= link_to("意見","/users/#{@user.id}/show")%>
+        </li><li> 
+            <%= link_to("いいねした意見","/users/#{@user.id}/show_likeopinions")%>
+        </li><li>
+            <%= link_to("フォロー中テーマ","/users/#{@user.id}/show_followthemes")%>
+        </li>
+    </ul>
+    <% @user.user_to_opinions.each do |opinion| %>
+        <div class="opinion-content">
+            テーマ：<%= opinion.opinion_to_theme.name %>
+            <p></p>
+            <%= opinion.content %>
+            <%= link_to("編集","/opinions/#{opinion.id}/edit")%>
+            <%= link_to("削除","/opinions/#{opinion.id}/destroy",{method:"post"})%>
+        </div>
+    <%end%>
+
+<%else%>
+    <% @user.user_to_opinions.each do |opinion| %>
+        <div class="opinion-content">
+            テーマ：<%= opinion.opinion_to_theme.name %>
+            <p></p>
+            <%= opinion.content %>
+
+        <% if OpinionLike.search_likeopinion_data?(userid:@current_user.id,opinionid:opinion.id) %>
+            <%= link_to("/opinion_likes/#{@current_user.id}/#{opinion.id}/destroy",{method:"post"}) do %>
+            　<span class="fas fa-heart unlike-btn"></span>
+            <%end%>
+            <%= opinion.likecount %>
+        <%else%>
+            <%= link_to("/opinion_likes/#{@current_user.id}/#{opinion.id}/create",{method:"post"}) do %>
+            　<span class="fas fa-heart like-btn"></span>
+            <%end%>
+            <%= opinion.likecount %>
+        <%end%>
+
+        </div>
+    <%end%>
+
+<%end%>
+

@@ -4,7 +4,6 @@
 
 
 //show
-
 .user_image{
     width: 100px;
     height: 100px;
@@ -12,4 +11,20 @@
     Border-radius:50%;
 }
 
+.opinion-content{
+    border: 1px solid #696969;
+    height: 80px;
+}
 
+//show_followthemes
+.followtheme-name{
+    border: 1px solid #696969;
+    height: 60px;
+}
+
+//show_likeopinions
+
+.likeopinion{
+    border: 1px solid #696969;
+    height: 80px;
+}

@@ -1,0 +1,31 @@
+<img src = <%="/user_image/#{@user.image_name}"%> class="user_image">
+
+<p> <%=@user.name%> </p>
+<p> <%=@user.introduction%> </p>
+<%= link_to("アカウント編集","/users/#{@user.id}/edit")%>
+
+<ul>
+    <li>
+        <%= link_to("意見","/users/#{@user.id}/show")%>
+    </li><li> 
+        <%= link_to("いいねした意見","/users/#{@user.id}/show_likeopinions")%>
+    </li><li>
+        <%= link_to("フォロー中テーマ","/users/#{@user.id}/show_followthemes")%>
+    </li>
+</ul>
+
+<% @user.user_to_likeopinions_data.each do |data| %>
+    <% opinion = data.likeopinion_data_to_opinion %>
+    <% if opinion %>
+    <div class="likeopinion">
+            テーマ：<%= opinion.opinion_to_theme.name %> /
+            ユーザ名：<%= opinion.opinion_to_user.name %>
+            <p></p>
+            <%= opinion.content %>
+            <%= link_to("/opinion_likes/#{@current_user.id}/#{opinion.id}/destroy",{method:"post"}) do %>
+                <span class="fas fa-heart unlike-btn"></span>
+            <%end%>
+            <%= opinion.likecount %>
+    </div>
+    <%end%>
+<%end%>
